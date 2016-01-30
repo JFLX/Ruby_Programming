@@ -1,8 +1,8 @@
-def bubble_sort(array)
+def bubble_sort_by(array)
 	i = 0
 	(array.length - 1).times do
 		while i < (array.length - 1)
-			if left_is_bigger?(array[i], array[i + 1])
+			if yield(array[i], array[i + 1]) > 0
 				array.swap!(i, i + 1)
 			end
 			i += 1
@@ -11,18 +11,12 @@ def bubble_sort(array)
 	end
 	puts "#{array}"
 end
-
-def left_is_bigger?(num1, num2)
-	comparison = num1 <=> num2
-	if comparison == 1
-		true
-	else
-		false
-	end
-end
 class Array
 	def swap!(index1, index2)
 		self[index1], self[index2] = self[index2], self[index1]
 	end
 end
-bubble_sort([4,3,78,2,0,2])
+
+bubble_sort_by(["hi","hello","hey"]) do |left,right|
+	left.length - right.length
+end
